@@ -33,7 +33,7 @@ def ScaleAndSaveSelectedImages(pathNames):
 
     root = tkinter.Tk()
     destDir = fd.askdirectory(parent=root, title='Select Directory To Save Images: ')
-    print(destDir)
+   # print(destDir)
     for i in range(0, len(pathNames)):
 
         sourceFile = pathNames[i]
