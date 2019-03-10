@@ -28,20 +28,24 @@ def selectAndGetFilePaths():
 
 def ScaleAndSaveSelectedImages(pathNames):
 
+    tgtRes = input("Enter the target resolution: ")
+    tgtRes = int(tgtRes)
+
+    root = tkinter.Tk()
+    destDir = fd.askdirectory(parent=root, title='Select Directory To Save Images: ')
+    print(destDir)
+    for i in range(0, len(pathNames)):
+
+        sourceFile = pathNames[i]
+        destFile = destDir+"/Converted_Image" + str(i+1) + ".tif"
+        gdal.Warp(destFile, sourceFile, xRes=tgtRes, yRes=tgtRes)
 
 
+file_paths = selectAndGetFilePaths()
+ScaleAndSaveSelectedImages(file_paths)
 
+print("Conversion Completed")
 
-filepaths = selectAndGetFilePaths()
-
-
-for i in range(0,imageNum):
-
-    originalImageName = 'E:\\1.ML_Project\\OwnCode\\RiverBankErosion\\OriginalImages\\' + 'B'+str(i+1)+'.tif'
-    convImageName = 'E:\\1.ML_Project\\OwnCode\\RiverBankErosion\\ConvertedImages\\'+'B'+str(i+1)+'_Converted.tif'
-
-    # Scaling image using gdal warp function
-    gdal.Warp(convImageName, originalImageName, xRes=resInt, yRes=resInt)
 
 
 
