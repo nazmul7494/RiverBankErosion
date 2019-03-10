@@ -1,12 +1,39 @@
 from osgeo import gdal
+import tkinter
+from tkinter import filedialog as fd
 
-numb = input("Enter the number of images to scale: ")
-imageNum = int(numb)
 
-resolution = input("Enter the target resolution (i.e.: 30 or 90, etc.): ")
-resInt = int(resolution);
+# -------------- Function for selecting and getting file path names ------------------------
 
-# Scaling images from 30m (default) resolution to 90m resolution:
+def selectAndGetFilePaths():
+
+    # Creating the root tkinter object for file selector gui
+    root = tkinter.Tk()
+    root.withdraw()  # not displaying the root window, only the selection window
+
+    allFilePaths = fd.askopenfiles(parent=root, title='Select All The Image Files to Be Converted: ')
+
+    numOfFilesSelected = len(allFilePaths)
+
+    paths = []  # this list will hold all the absolute file paths of the selected image files
+
+    for i in range(0, numOfFilesSelected):
+        paths.append(allFilePaths[i].name)  # Retrieving individual file paths from each ioTextWrapper object
+    root.destroy()
+
+    return paths
+
+# ----------------------- Function for Scaling and Saving the Resultant Images ------------------
+
+
+def ScaleAndSaveSelectedImages(pathNames):
+
+
+
+
+
+filepaths = selectAndGetFilePaths()
+
 
 for i in range(0,imageNum):
 
@@ -16,7 +43,7 @@ for i in range(0,imageNum):
     # Scaling image using gdal warp function
     gdal.Warp(convImageName, originalImageName, xRes=resInt, yRes=resInt)
 
-print("----------------------------------------- Conversion Complete -----------------------------------------------------")
+
 
 
 
